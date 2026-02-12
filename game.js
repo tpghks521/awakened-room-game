@@ -1173,7 +1173,7 @@ function updatePlayerMovement(delta) {
 
     // Get right vector
     const right = new THREE.Vector3();
-    right.crossVectors(camera.up, cameraDirection).normalize();
+    right.crossVectors(cameraDirection, camera.up).normalize();
 
     // Calculate movement
     const moveVector = new THREE.Vector3();
