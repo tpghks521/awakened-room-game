@@ -1173,12 +1173,12 @@ function updatePlayerMovement(delta) {
 
     // Get right vector
     const right = new THREE.Vector3();
-    right.crossVectors(cameraDirection, camera.up).normalize();
+    right.crossVectors(camera.up, cameraDirection).normalize();
 
     // Calculate movement
     const moveVector = new THREE.Vector3();
     moveVector.addScaledVector(cameraDirection, -velocity.z);
-    moveVector.addScaledVector(right, -velocity.x);
+    moveVector.addScaledVector(right, velocity.x);
 
     // Apply movement with collision detection
     const newPosition = camera.position.clone().add(moveVector);
