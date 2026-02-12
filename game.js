@@ -817,7 +817,7 @@ function updateJoystick(touch) {
     joystickStick.style.left = `calc(50% + ${deltaX}px)`;
     joystickStick.style.top = `calc(50% + ${deltaY}px)`;
 
-    joystickDirection.x = -deltaX / maxDistance;  // Negated to fix reversed left/right
+    joystickDirection.x = deltaX / maxDistance;
     joystickDirection.y = deltaY / maxDistance;
 
     // Update movement controls
