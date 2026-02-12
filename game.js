@@ -433,13 +433,13 @@ function createDoors() {
     const doorHeight = 3.5;
     const doorThickness = 0.3;
 
-    // Rusted iron door material
+    // Heavily rusted iron door material
     const doorMaterial = new THREE.MeshStandardMaterial({
-        color: 0x6b4423,        // Rusty brown-orange color
-        roughness: 0.95,         // Very rough, weathered surface
-        metalness: 0.6,          // Partially metallic (rusted metal)
-        emissive: 0x3a1f0f,     // Slight brown glow
-        emissiveIntensity: 0.2
+        color: 0x8b4513,        // Deep rust orange-brown color
+        roughness: 1.0,          // Completely rough, heavily weathered
+        metalness: 0.4,          // More rust, less metal showing
+        emissive: 0x5a2f0f,     // Stronger orange-brown glow
+        emissiveIntensity: 0.4   // More intense rust glow
     });
 
     // === FIRST SET: Three doors in front wall ===
