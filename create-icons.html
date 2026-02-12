@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>아이콘 생성기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px;
+            background: white;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #ff4444;
+        }
+        button {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #cc0000;
+        }
+        .instructions {
+            background: #ffffcc;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 깨어난 방 - 아이콘 생성기</h1>
+
+        <div class="instructions">
+            <strong>📝 사용법:</strong><br>
+            1. 아래 버튼을 클릭하여 각 아이콘을 다운로드하세요<br>
+            2. 파일명 그대로 게임 폴더에 저장하세요<br>
+            3. 두 개 모두 다운로드해야 PWA가 작동합니다
+        </div>
+
+        <h2>192x192 아이콘</h2>
+        <canvas id="icon192" width="192" height="192"></canvas><br>
+        <button onclick="downloadIcon('icon192', 'icon-192.png')">📥 icon-192.png 다운로드</button>
+
+        <h2>512x512 아이콘</h2>
+        <canvas id="icon512" width="512" height="512"></canvas><br>
+        <button onclick="downloadIcon('icon512', 'icon-512.png')">📥 icon-512.png 다운로드</button>
+    </div>
+
+    <script>
+        function createIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+
+            // Background - dark gradient
+            const gradient = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+            gradient.addColorStop(0, '#2a0a0a');
+            gradient.addColorStop(1, '#000000');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+
+            // Door icon
+            const doorWidth = size * 0.5;
+            const doorHeight = size * 0.7;
+            const doorX = (size - doorWidth) / 2;
+            const doorY = (size - doorHeight) / 2;
+
+            // Door
+            ctx.fillStyle = '#4a2c2a';
+            ctx.fillRect(doorX, doorY, doorWidth, doorHeight);
+
+            // Door frame
+            ctx.strokeStyle = '#8b4513';
+            ctx.lineWidth = size * 0.02;
+            ctx.strokeRect(doorX, doorY, doorWidth, doorHeight);
+
+            // Door handle
+            const handleX = doorX + doorWidth * 0.7;
+            const handleY = doorY + doorHeight * 0.5;
+            const handleSize = size * 0.04;
+            ctx.fillStyle = '#ffd700';
+            ctx.beginPath();
+            ctx.arc(handleX, handleY, handleSize, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Red glow (horror effect)
+            ctx.shadowBlur = size * 0.1;
+            ctx.shadowColor = '#ff0000';
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+            ctx.fillRect(0, 0, size, size);
+
+            // Game title
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = '#ff4444';
+            ctx.font = `bold ${size * 0.12}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.fillText('깨어난 방', size/2, size * 0.9);
+        }
+
+        function downloadIcon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Create icons on page load
+        window.onload = () => {
+            createIcon('icon192', 192);
+            createIcon('icon512', 512);
+        };
+    </script>
+</body>
+</html>

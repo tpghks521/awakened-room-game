@@ -1,0 +1,368 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background-color: #000;
+    color: #fff;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-content h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #ff4444;
+    text-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-top: 5px solid #ff4444;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Instructions Screen */
+#instructions {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.instructions-content {
+    background: rgba(20, 20, 20, 0.9);
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 500px;
+    border: 2px solid #333;
+    box-shadow: 0 0 30px rgba(255, 68, 68, 0.3);
+}
+
+.instructions-content h2 {
+    color: #ff4444;
+    margin-bottom: 20px;
+    font-size: 2em;
+    text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.instructions-content h3 {
+    color: #ccc;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.instructions-content ul {
+    list-style: none;
+    margin-left: 20px;
+}
+
+.instructions-content li {
+    margin: 10px 0;
+    color: #aaa;
+}
+
+.instructions-content strong {
+    color: #ff4444;
+}
+
+button {
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(255, 68, 68, 0.4);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #ff6666 0%, #ff0000 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 68, 68, 0.6);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Game UI */
+#game-ui {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Crosshair */
+#crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+#crosshair::before,
+#crosshair::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+#crosshair::before {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+}
+
+#crosshair::after {
+    left: 50%;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+}
+
+/* Hint Display */
+#hint-display {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px 40px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    display: none;
+    border: 2px solid #ff4444;
+    box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+}
+
+/* Interaction Prompt */
+#interaction-prompt {
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    display: none;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Game Over Screen */
+#game-over, #victory {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 998;
+}
+
+.game-over-content, .victory-content {
+    text-align: center;
+    background: rgba(20, 20, 20, 0.9);
+    padding: 60px;
+    border-radius: 10px;
+    border: 2px solid #333;
+}
+
+.game-over-content h1 {
+    color: #ff4444;
+    font-size: 4em;
+    margin-bottom: 30px;
+    text-shadow: 0 0 30px rgba(255, 68, 68, 0.8);
+    animation: pulse 2s infinite;
+}
+
+.victory-content h1 {
+    color: #44ff44;
+    font-size: 4em;
+    margin-bottom: 30px;
+    text-shadow: 0 0 30px rgba(68, 255, 68, 0.8);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.game-over-content p, .victory-content p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    color: #ccc;
+}
+
+/* Mobile Controls */
+#mobile-controls {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Joystick */
+#joystick-container {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    width: 150px;
+    height: 150px;
+    pointer-events: auto;
+}
+
+#joystick-base {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+#joystick-stick {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.1s;
+}
+
+/* Mobile Buttons */
+#mobile-interact-btn {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+    color: white;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-weight: bold;
+    pointer-events: auto;
+    opacity: 0.8;
+    display: none;
+    line-height: 1.2;
+}
+
+#mobile-interact-btn.visible {
+    display: block;
+}
+
+#mobile-run-btn {
+    position: absolute;
+    bottom: 130px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4444ff 0%, #0000cc 100%);
+    color: white;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    font-weight: bold;
+    pointer-events: auto;
+    opacity: 0.8;
+}
+
+#mobile-run-btn:active {
+    opacity: 1;
+    transform: scale(0.95);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .instructions-content {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .instructions-content h2 {
+        font-size: 1.5em;
+    }
+
+    button {
+        padding: 12px 30px;
+        font-size: 1em;
+    }
+
+    /* Show mobile controls on mobile */
+    #mobile-controls {
+        display: block;
+    }
+
+    /* Hide crosshair on mobile */
+    #crosshair {
+        display: none;
+    }
+
+    /* Adjust hint display for mobile */
+    #hint-display {
+        font-size: 1em;
+        padding: 15px 20px;
+    }
+}

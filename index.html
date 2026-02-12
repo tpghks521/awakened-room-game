@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>깨어난 방 (Awakened Room)</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="공포 퍼즐 탈출 게임 - 방에서 탈출하세요!">
+    <meta name="theme-color" content="#ff4444">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="깨어난 방">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <h1>깨어난 방</h1>
+            <p>로딩 중...</p>
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Game Instructions -->
+    <div id="instructions">
+        <div class="instructions-content">
+            <h2>깨어난 방 (Awakened Room)</h2>
+            <p>당신은 낯선 방에서 깨어났습니다...</p>
+            <p>탈출하기 위해 퍼즐을 풀어야 합니다.</p>
+            <br>
+            <h3>조작법:</h3>
+            <p><strong>💻 PC:</strong></p>
+            <ul>
+                <li><strong>WASD</strong> 또는 <strong>방향키</strong> - 이동</li>
+                <li><strong>마우스</strong> - 둘러보기</li>
+                <li><strong>E</strong> - 상호작용</li>
+                <li><strong>Shift</strong> - 달리기</li>
+            </ul>
+            <p><strong>📱 모바일:</strong></p>
+            <ul>
+                <li><strong>왼쪽 조이스틱</strong> - 이동</li>
+                <li><strong>화면 스와이프</strong> - 둘러보기</li>
+                <li><strong>E 버튼</strong> - 상호작용 (문 근처에서 나타남)</li>
+                <li><strong>달리기 버튼</strong> - 빠르게 이동</li>
+            </ul>
+            <button id="start-button">게임 시작</button>
+        </div>
+    </div>
+
+    <!-- Game UI -->
+    <div id="game-ui" style="display: none;">
+        <!-- Crosshair -->
+        <div id="crosshair"></div>
+
+        <!-- Hint Display -->
+        <div id="hint-display"></div>
+
+        <!-- Interaction Prompt -->
+        <div id="interaction-prompt"></div>
+
+        <!-- Mobile Controls -->
+        <div id="mobile-controls">
+            <!-- Movement Joystick -->
+            <div id="joystick-container">
+                <div id="joystick-base"></div>
+                <div id="joystick-stick"></div>
+            </div>
+
+            <!-- Interaction Button -->
+            <button id="mobile-interact-btn">E<br>열기</button>
+
+            <!-- Run Button -->
+            <button id="mobile-run-btn">달리기</button>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over" style="display: none;">
+        <div class="game-over-content">
+            <h1>GAME OVER</h1>
+            <p>괴물에게 잡혔습니다...</p>
+            <button id="retry-button">다시 시도</button>
+        </div>
+    </div>
+
+    <!-- Victory Screen -->
+    <div id="victory" style="display: none;">
+        <div class="victory-content">
+            <h1>탈출 성공!</h1>
+            <p>축하합니다! 방에서 탈출했습니다.</p>
+            <button id="play-again-button">다시 플레이</button>
+        </div>
+    </div>
+
+    <!-- Three.js Library (from CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+
+    <!-- Game Script -->
+    <script src="game.js"></script>
+</body>
+</html>
